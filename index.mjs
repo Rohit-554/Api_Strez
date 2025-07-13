@@ -247,6 +247,12 @@ fastify.get('/white-hat-access', async (req, reply) => {
   }
 })
 
-fastify.listen({ port: 3000, host: '0.0.0.0' }).then(() => {
-  console.log('Enhanced Sentinel API running on http://localhost:3000')
+const PORT = process.env.PORT || 3000
+const HOST = process.env.HOST || '0.0.0.0'
+
+fastify.listen({ port: PORT, host: HOST }).then(() => {
+  console.log(`Enhanced Sentinel API running on http://${HOST}:${PORT}`)
+}).catch(err => {
+  fastify.log.error(err)
+  process.exit(1)
 })
